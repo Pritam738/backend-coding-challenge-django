@@ -9,7 +9,8 @@ The project provides a RESTful API for managing notes. Users can create, read, u
 ## Features
 
 - User registration and authentication
-- user can Create, read, update, and delete notes
+- user can Create, update, and delete their own notes
+- users can read their own and all public notes
 - Search notes by keywords
     - user can search their notes as well as all public notes
 - Filter notes by tags
