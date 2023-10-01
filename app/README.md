@@ -282,3 +282,6 @@ To run the test cases using docker-compose
 ```
     docker-compose run app python manage.py test
 ```
+# scope of imporvement 
+
+1. use pagination in the search, filter and get all notes api's to handle load.
