@@ -42,7 +42,7 @@ class NoteDetailView(APIView):
         note = get_object_or_404(Note, id=note_id)
         if not note.is_public and note.user != request.user:
             # If the note is private and the user is not the creator, return 403 Forbidden
-            logger.warning("You do not have permission to view this note.",user=request.user)
+            logger.warning("You do not have permission to view this note.")
             return Response({'detail': 'You do not have permission to view this note.'}, status=status.HTTP_403_FORBIDDEN)
         serializer = NoteSerializer(note)
         return Response(serializer.data)
@@ -52,7 +52,7 @@ class NoteDetailView(APIView):
         
         if note.user != request.user:
             # If the note is private and the user is not the creator, return 403 Forbidden
-            logger.warning("You do not have permission to modify this note.",user=request.user)
+            logger.warning("You do not have permission to modify this note.")
             return Response({'detail': 'You do not have permission to modify this note.'}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = NoteSerializer(note, data=request.data, context={'request': request})
@@ -66,7 +66,7 @@ class NoteDetailView(APIView):
 
         if note.user != request.user:
             # If the note is private and the user is not the creator, return 403 Forbidden
-            logger.warning("You do not have permission to delete this note.",user=request.user)
+            logger.warning("You do not have permission to delete this note.")
             return Response({'detail': 'You do not have permission to delete this note.'}, status=status.HTTP_403_FORBIDDEN)
 
         note.delete()

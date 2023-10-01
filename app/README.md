@@ -27,33 +27,22 @@ The project provides a RESTful API for managing notes. Users can create, read, u
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows, use: venv\Scripts\activate
-```
-3. Install project dependencies:
-
-```bash
-pip install -r requirements.txt
+cd app
 ```
 
-4. Apply database migrations:
-
-```bash
-python manage.py migrate
-```
-
-5. Run the development server:
-```bash
-python manage.py runserver
-Access the API at http://localhost:8000/api/.
-```
-or 
-
-1. Use docker compose 
+3. Use docker compose 
  
     1. docker-compose build
  
     2. docker-compose run app python manage.py migrate
  
     3. docker-compose up
+
+4. Run the development server:
+
+```bash
+    Access the API at http://localhost:8000/api/.
+```
 
 # API USAGE
 
@@ -103,8 +92,6 @@ POST /api/notes/create/
 Request Headers:
 
 ```
-http
-
 Content-Type: application/json
 Authorization: Token your_token_here
 ```
@@ -131,8 +118,6 @@ GET /api/notes/
 Request Headers:
 
 ```
-http
-
 Authorization: Token your_token_here
 ```
 
@@ -148,8 +133,6 @@ GET /api/notes/search/?keywords=your_keywords
 Request Headers:
 
 ```
-http
-
 Authorization: Token your_token_here
 ```
 
@@ -165,8 +148,6 @@ GET /api/notes/?tags=your_tags
 Request Headers:
 
 ```
-http
-
 Authorization: Token your_token_here
 ```
 
@@ -182,8 +163,6 @@ GET /api/notes/
 Request Headers:
 
 ```
-http
-
 Authorization: Token your_token_here
 ```
 
@@ -199,8 +178,6 @@ PUT /api/notes/detail/<note_id>/
 Request Headers:
 
 ```
-http
-
 Content-Type: application/json
 Authorization: Token your_token_here
 ```
@@ -215,6 +192,7 @@ Request Body:
     "is_public": true
 }
 ```
+
 ## Delete a Note
 To delete an existing note, make a DELETE request to the following endpoint:
 
@@ -226,23 +204,16 @@ DELETE /api/notes/detail/<note_id>/
 Request Headers:
 
 ```
-http
-
 Authorization: Token your_token_here
 ```
+
 # Logging
 
 The project uses logging to capture important events. Logs are available in the server logs and can be configured according to your needs.
 
 # Test cases
 
-To run the test cases ypu can use django test cmd 
-
-```
-    python manage.py test 
-```
-
-or if you are useing docker-compose 
+To run the test cases using docker-compose 
 
 ```
     docker-compose run app python manage.py test
