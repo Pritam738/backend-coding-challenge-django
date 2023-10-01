@@ -39,8 +39,6 @@ cd app
  
     3. docker-compose up
 
-4. Run the development server:
-
 ```bash
     Access the API at http://localhost:8000/api/.
 ```
