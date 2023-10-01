@@ -284,4 +284,5 @@ To run the test cases using docker-compose
 ```
 # scope of imporvement 
 
-1. use pagination in the search, filter and get all notes api's to handle load.
+1. use pagination in the search, filter and get all notes api's to increasing handle load.
+2. implement api caching, so for the same api request we dont query the DB again and again; help in load management.
