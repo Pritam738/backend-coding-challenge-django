@@ -282,7 +282,7 @@ To run the test cases using docker-compose
 ```
     docker-compose run app python manage.py test
 ```
-# scope of imporvement 
+# Scope for imporvement 
 
 1. use pagination in the search, filter and get all notes api's to increasing handle load.
 2. implement api caching, so for the same api request we dont query the DB again and again; help in load management.
