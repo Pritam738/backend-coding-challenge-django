@@ -20,24 +20,12 @@ class NoteCreateView(APIView):
             serializer.save(user=request.user)  # Attach the user to the note
             logger.info("Note created successfully.", data=serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        logger.warning("Issue with Note creation.",error=serializer.errors)
+        logger.warning("Issue with Note creation.")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class NoteDetailView(APIView):
-    '''
-        Allow Public Access for Read-Only (GET):
-            If a note is public (is_public=True), allow anyone to access it without authentication.
-            If a note is private (is_public=False), require authentication to access it.
-            
-        Disallow Modification for Public Notes (PUT and DELETE):
-            If a note is public (is_public=True), disallow modification (PUT and DELETE)
-              for all users, even if they are authenticated.
-            If a note is private (is_public=False), allow the owner (authenticated user)
-              to modify or delete it.
-    '''
     permission_classes = [IsAuthenticatedOrReadOnly]
     
-
     def get(self, request, note_id):
         note = get_object_or_404(Note, id=note_id)
         if not note.is_public and note.user != request.user:

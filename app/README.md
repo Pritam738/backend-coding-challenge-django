@@ -34,11 +34,11 @@ cd app
 
 3. Use docker compose 
  
-    1. docker-compose build
- 
-    2. docker-compose run app python manage.py migrate
- 
-    3. docker-compose up
+```bash
+    docker-compose build
+    docker-compose run app python manage.py migrate
+    docker-compose up
+```
 
 ```bash
     Access the API at http://localhost:8000/api/.
@@ -50,8 +50,6 @@ cd app
 To register a new user, make a POST request to the following endpoint:
 
 ```
-http
-
 POST /api/register/
 ```
 Request Body:
@@ -70,6 +68,14 @@ curl --location --request POST 'http://localhost:8000/api/register/' \
     "username": "test",
     "password": "password"
 }'
+```
+
+Response Body
+```
+{
+    "message": "User created successfully.",
+    "token": "ccadf65f8a64f2722a1d84581c7e219459856734"
+}
 ```
 
 ## User Login
@@ -98,12 +104,19 @@ curl --location --request POST 'http://localhost:8000/api/login/' \
 }'
 ```
 
+Response Body
+
+```
+{
+    "token": "ccadf65f8a64f2722a1d84581c7e219459856734"
+}
+```
+Note: this token is used for authorization in bellow apis
+
 ## Create a Note
 To create a new note, make a POST request to the following endpoint:
 
 ```
-http
-
 POST /api/notes/create/
 ```
 
@@ -111,7 +124,7 @@ Request Headers:
 
 ```
 Content-Type: application/json
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 Request Body:
 
@@ -123,6 +136,7 @@ Request Body:
     "is_public": false
 }
 ```
+
 ```
 curl --location --request POST 'http://localhost:8000/api/notes/create/' \
 --header 'Content-Type: application/json' \
@@ -135,38 +149,59 @@ curl --location --request POST 'http://localhost:8000/api/notes/create/' \
 }'
 ```
 
+Response Body
+
+```
+{
+    "id": 1,
+    "title": "Your Note Title",
+    "body": "This is the content of your note.",
+    "tags": "tag1,tag2",
+    "is_public": false
+}
+```
+
 ## List Notes by id
 To retrieve a note by id, make a GET request to the following endpoint:
 
 ```
-http
-
 GET /api/notes/< id >/
 ```
 
 Request Headers:
 
 ```
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
+Note:  Authorization token is optional here; if you dont pass the token, you will only be able to access public     notes. With a valid user token you will be able to access all users notes and all public notes.
 
 ```
-curl --location --request GET 'http://localhost:8000/api/notes/1/'
+curl --location --request GET 'http://localhost:8000/api/notes/1/' \
+--header 'Authorization: Token edbc23c6ed8399c8e2e5410b34498fdc9e66607a' \
 ```
 
+Response Body
+
+```
+{
+    "id": 1,
+    "title": "Your Note Title",
+    "body": "This is the content of your note.",
+    "tags": "tag1,tag2",
+    "is_public": false
+}
+```  
 ## Search Notes by Keywords
 To search for notes by keywords, make a GET request to the following endpoint:
 
 ```
-http
-
 GET /api/notes/search/?keywords=your_keywords
 ```
 
 Request Headers:
 
 ```
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 
 ```
@@ -174,19 +209,31 @@ curl --location --request GET 'http://localhost:8000/api/notes/search/?keywords=
 --header 'Authorization: Token edbc23c6ed8399c8e2e5410b34498fdc9e66607a' \
 ```
 
+Response Body
+
+```
+[{
+    "id": 1,
+    "title": "Your Note Title",
+    "body": "This is the content of your note.",
+    "tags": "tag1,tag2",
+    "is_public": false
+},
+...
+]
+```  
+
 ## Filter Notes by Tags
 To filter notes by tags, make a GET request to the following endpoint:
 
 ```
-http
-
 GET /api/notes/?tags=your_tags
 ```
 
 Request Headers:
 
 ```
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 
 ```
@@ -194,19 +241,29 @@ curl --location --request GET 'http://localhost:8000/api/notes/list/?tags=tag3,t
 --header 'Authorization: Token edbc23c6ed8399c8e2e5410b34498fdc9e66607a' \
 ```
 
+Response Body
+
+```
+{
+    "id": 1,
+    "title": "Your Note Title",
+    "body": "This is the content of your note.",
+    "tags": "tag3,tag4",
+    "is_public": false
+}
+```  
+
 ## Get all Notes of a user
 To fetch all notes of a user, make a GET request to the following endpoint:
 
 ```
-http
-
 GET /api/notes/
 ```
 
 Request Headers:
 
 ```
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 
 ```
@@ -214,11 +271,59 @@ curl --location --request GET 'http://localhost:8000/api/notes/list/' \
 --header 'Authorization: Token edbc23c6ed8399c8e2e5410b34498fdc9e66607a' \
 ```
 
+Response Body
+
+```
+[
+    {
+        "id": 1,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": false
+    },
+    {
+        "id": 3,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": true
+    },
+    {
+        "id": 4,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": true
+    },
+    {
+        "id": 5,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": true
+    },
+    {
+        "id": 6,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": true
+    },
+    {
+        "id": 7,
+        "title": "Updated Note Title",
+        "body": "This is the updated content of your note.",
+        "tags": "tag3,tag4",
+        "is_public": true
+    }
+]
+```
+
 ## Update a Note
 To update an existing note, make a PUT request to the following endpoint:
 
 ```
-http
 PUT /api/notes/detail/<note_id>/
 ```
 
@@ -226,7 +331,7 @@ Request Headers:
 
 ```
 Content-Type: application/json
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 
 Request Body:
@@ -251,19 +356,28 @@ curl --location --request PUT 'http://localhost:8000/api/notes/detail/1/' \
     "is_public": false
 }'
 ```
+Response Body
+
+```
+{
+    "id": 1,
+    "title": "Your Note Title",
+    "body": "This is the content of your note.",
+    "tags": "tag3,tag4",
+    "is_public": false
+}
+```  
 
 ## Delete a Note
 To delete an existing note, make a DELETE request to the following endpoint:
 
 ```
-http
-
 DELETE /api/notes/detail/<note_id>/
 ```
 Request Headers:
 
 ```
-Authorization: Token your_token_here
+Authorization: Token < your_token_here >
 ```
 
 ```
@@ -282,7 +396,7 @@ To run the test cases using docker-compose
 ```
     docker-compose run app python manage.py test
 ```
-# Scope for imporvement 
+# Scope for improvement 
 
-1. use pagination in the search, filter and get all notes api's to increasing handle load.
-2. implement api caching, so for the same api request we dont query the DB again and again; help in load management.
+1. Use pagination in the search, filter and get all notes api's to increasing handle load.
+2. Implement api caching, so for the same api request we dont query the DB again and again; help in load management.
