@@ -24,6 +24,11 @@ class NoteCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class NoteDetailView(APIView):
+    """
+        get notes based on note id;
+        update notes based on note id;
+        delete notes based on note id;
+    """
     permission_classes = [IsAuthenticatedOrReadOnly]
     
     def get(self, request, note_id):

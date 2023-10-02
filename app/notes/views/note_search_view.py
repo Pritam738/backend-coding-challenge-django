@@ -11,6 +11,10 @@ import logging
 logger = logging.getLogger("NoteSearchView")
 
 class NoteSearchView(APIView):
+    """
+        User can search all public notes and their notes using keywords.
+        Non authenticated users can search only public notes using keywords.
+    """
     permission_classes = [IsAuthenticatedOrReadOnly]
     def get(self, request):
         keywords = request.query_params.get('keywords', '')
@@ -41,6 +45,10 @@ class NoteSearchView(APIView):
             return Response({'detail': 'Please provide keywords for the search.'}, status=status.HTTP_400_BAD_REQUEST)
 
 class NoteListView(generics.ListCreateAPIView):
+    """
+        Owner can fetch all his notes, or filter his notes based on tags
+        Public notes that don't belong to the owner won't be returned with this api.
+    """
     serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
 

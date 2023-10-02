@@ -38,7 +38,7 @@ class NoteDetailViewTestCase(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + other_token.key)
 
         response = self.client.get(f'/api/notes/detail/{self.note.id}/')
-        
+        # we get 403 as all the notes are private
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_put_note_with_permission(self):
