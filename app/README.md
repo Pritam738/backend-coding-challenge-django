@@ -361,8 +361,8 @@ Response Body
 ```
 {
     "id": 1,
-    "title": "Your Note Title",
-    "body": "This is the content of your note.",
+    "title": "Updated Note Title",
+    "body": "This is the updated content of your note.",
     "tags": "tag3,tag4",
     "is_public": false
 }
