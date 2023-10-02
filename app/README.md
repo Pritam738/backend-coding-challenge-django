@@ -8,14 +8,14 @@ The project provides a RESTful API for managing notes. Users can create, read, u
 
 ## Features
 
-- User registration and authentication
-- user can Create, update, and delete their own notes
-- Notes can be public or private
-- users can read their own and all public notes
-- Search notes by keywords
-    - user can search their notes as well as all public notes
-- Filter notes by tags
-    - user can access all their notes as well as public notes
+- User registration and authentication.
+- User can Create, update, and delete their own notes.
+- Notes can be public or private.
+- users can read their own and all public notes.
+- Search notes by keywords.
+    - User can search their notes as well as all public notes.
+- Filter notes by tags.
+    - User can access all their notes as well as public notes.
 
 ## Installation and How to run the code
 
@@ -38,10 +38,6 @@ cd app
     docker-compose build
     docker-compose run app python manage.py migrate
     docker-compose up
-```
-
-```bash
-    Access the API at http://localhost:8000/api/.
 ```
 
 # API USAGE
@@ -111,7 +107,7 @@ Response Body
     "token": "ccadf65f8a64f2722a1d84581c7e219459856734"
 }
 ```
-Note: this token is used for authorization in bellow apis
+Note: this token is used for authorization in below apis
 
 ## Create a Note
 To create a new note, make a POST request to the following endpoint:
