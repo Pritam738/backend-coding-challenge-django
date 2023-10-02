@@ -11,6 +11,9 @@ import logging
 logger = logging.getLogger("NoteManagementView")
 
 class NoteCreateView(APIView):
+    """
+        create a new note
+    """
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def post(self, request):
