@@ -78,8 +78,6 @@ Response Body
 To log in as a registered user, make a POST request to the following endpoint:
 
 ```
-http
-
 POST /api/login/
 ```
 Request Body:
@@ -380,6 +378,15 @@ Authorization: Token < your_token_here >
 curl --location --request DELETE 'http://localhost:8000/api/notes/detail/3/' \
 --header 'Authorization: Token ccadf65f8a64f2722a1d84581c7e219459856734' \
 ```
+# Http Response Code
+
+200: success
+204: resource deleted
+400: bad request (issue with input params)
+401: unauthorized access (issue with access token)
+403: you dont have permission for the operation
+404: endpoint not available 
+500: internal server error
 
 # Logging
 
